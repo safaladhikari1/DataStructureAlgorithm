@@ -40,12 +40,14 @@ public class ArrayList<T> implements List<T> {
 		size = 0;
 	}
 
+    @Override
 	public void add(T value) {
 		ensureCapacity(size + 1);
 		typeData[size] = value;
 		size++;
 	}
 
+    @Override
 	public void add(int index, T value) {
 		if (index < 0 || index > size) {
 			throw new IndexOutOfBoundsException("index: " + index);
@@ -86,15 +88,18 @@ public class ArrayList<T> implements List<T> {
 		}
 	}
 
+    @Override
 	public T get(int index) {
 		checkIndex(index);
 		return typeData[index];
 	}
 
+    @Override
 	public int size() {
 		return size;
 	}
 
+    @Override
 	public int indexOf(T value) {
 		for(int i=0; i < size; i++) {
 			if(typeData[i].equals(value)) {
@@ -105,14 +110,17 @@ public class ArrayList<T> implements List<T> {
 		return -1;
 	}
 
+    @Override
 	public boolean contains(T value) {
 		return indexOf(value) >= 0;
 	}
 
+    @Override
 	public boolean isEmpty() {
 		return size == 0;
 	}
 
+    @Override
 	public void clear() {
 		for(int i=0; i<size; i++) {
 			typeData[i] = null;
@@ -122,7 +130,8 @@ public class ArrayList<T> implements List<T> {
 	}
 
 	// https://github.com/safaladhikari1/Java-Concepts2/blob/0b6e793d4f915fb566fb2af9764c52f49f712424/ArrayLists/src/examples/ResizeableArray.java#L38
-	public void remove(T value) {
+	@Override
+    public void remove(T value) {
 		if(!contains(value)) {
 			throw new NoSuchElementException(value + " does not exist in the list.");
 		} else {
@@ -140,11 +149,13 @@ public class ArrayList<T> implements List<T> {
 		}
 	}
 
+    @Override
 	public void set(int index, T value) {
 		checkIndex(index);
 		typeData[index] = value;
 	}
 
+    @Override
 	public void addAll(List<T> other) {
 		for(T data : other) {
 			add(data);

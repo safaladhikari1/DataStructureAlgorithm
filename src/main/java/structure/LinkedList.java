@@ -32,6 +32,7 @@ public class LinkedList<T> implements List<T> {
 		head = null;
 	}
 
+    @Override
 	public void add(T value) {
 
 		if(head == null) {
@@ -48,6 +49,7 @@ public class LinkedList<T> implements List<T> {
 		size++;
 	}
 
+    @Override
 	public void add(int index, T value) {
 
 		if(index < 0 || index > size) {
@@ -69,21 +71,25 @@ public class LinkedList<T> implements List<T> {
 		size++;
 	}
 
+    @Override
 	public boolean isEmpty() {
 		return size == 0;
 	}
 
+    @Override
 	public int size() {
 		return size;
 	}
 
+    @Override
 	public void clear() {
 		head = null;
         size = 0;
 	}
 
 	// https://github.com/safaladhikari1/Java-Concepts2/blob/0b6e793d4f915fb566fb2af9764c52f49f712424/LinkedListPractice/src/linked_lists/LinkedList.java#L81
-	public void remove(T value) {
+	@Override
+    public void remove(T value) {
 		if(head == null) {
 			return;
 		}
@@ -101,14 +107,69 @@ public class LinkedList<T> implements List<T> {
 		}
 
 		if(current.next == null) {
-			return;
+            throw new NoSuchElementException(value + " does not exist in the list.");
 		} else {
 			current.next = current.next.next;
 			size--;
-
-			return;
 		}
 	}
+
+    @Override
+    public T get(int index) {
+
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException(index + " is out of bound.");
+        }
+
+        ListNode<T> current = head;
+
+        for(int i=0; i < index; i++) {
+            current = current.next;
+        }
+
+        return current.data;
+    }
+
+    @Override
+    public void addAll(List<T> other) {
+        for(T value: other) {
+            add(value);
+        }
+    }
+
+    @Override
+    public int indexOf(T value) {
+        int index = 0;
+        ListNode<T> current = head;
+        while(current != null) {
+            if(current.data.equals(value)) {
+                return index;
+            }
+            index++;
+            current = current.next;
+        }
+
+        return -1;
+    }
+
+    @Override
+    public boolean contains(T value) {
+        return indexOf(value) >= 0;
+    }
+
+    @Override
+    public void set(int index, T value) {
+        if(index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException("index: " + index);
+        }
+
+        ListNode<T> current = head;
+        for(int i=0; i < index; i++) {
+            current = current.next;
+        }
+
+        current.data = value;
+    }
 
 	@Override
 	public String toString() {

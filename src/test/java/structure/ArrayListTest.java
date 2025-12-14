@@ -1,5 +1,6 @@
 package structure;
 
+import abstractDataType.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -10,10 +11,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class ArrayListTest {
 
-	private ArrayList<String> list;
+	private List<String> list;
 
-	private ArrayList<String> createList() {
-		return new ArrayList<>();
+	private List<String> createList() {
+		//return new ArrayList<>();
+        return new LinkedList<>();
 	}
 
     @BeforeEach
