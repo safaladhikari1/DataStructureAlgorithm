@@ -2,6 +2,9 @@ package structure;
 
 import abstractDataType.List;
 
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
 public class LinkedList<T> implements List<T> {
 
 	private static class ListNode<T> {
@@ -76,6 +79,7 @@ public class LinkedList<T> implements List<T> {
 
 	public void clear() {
 		head = null;
+        size = 0;
 	}
 
 	// https://github.com/safaladhikari1/Java-Concepts2/blob/0b6e793d4f915fb566fb2af9764c52f49f712424/LinkedListPractice/src/linked_lists/LinkedList.java#L81
@@ -124,4 +128,33 @@ public class LinkedList<T> implements List<T> {
 			return result;
 		}
 	}
+
+    public Iterator<T> iterator() {
+        return new LinkedListIterator();
+    }
+
+    private class LinkedListIterator implements Iterator<T> {
+        private ListNode<T> current;
+
+        public LinkedListIterator() {
+            current = head;
+        }
+
+        public boolean hasNext() {
+            return current != null;
+        }
+
+        public T next() {
+            if(!hasNext()) {
+                throw new NoSuchElementException();
+            }
+
+            T result = current.data;
+            current = current.next;
+
+            return result;
+        }
+
+    }
+
 }
